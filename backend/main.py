@@ -1,12 +1,10 @@
 from decouple import config
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
 import uvicorn
-
 from motor.motor_asyncio import AsyncIOMotorClient
-
 from routers.cars import router as cars_router
+from routers.users import router as users_router
 
 origins = ["*"]
 
@@ -23,6 +21,7 @@ app.add_middleware(
 )
 
 app.include_router(cars_router, prefix="/cars", tags=["cars"])
+app.include_router(users_router, prefix="/users", tags=["users"]) 
 
 @app.on_event("startup")
 async def startup_db_client():
